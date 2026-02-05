@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo_app
+  labels:
+    app: mongo_app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo_app
+  template:
+    metadata:
+      labels:
+        app: mongo_app
+    spec:
+      containers:
+      - name: mongo_app
+        image: yehudalinker/mongo_app:v1
+        ports:
+        - containerPort: 8888
+        env:
+        - name: MONGO_URI
+          value: "mongodb://mongodb-0.mongodb-service:27017/"
+        - name: MONGO_DB
+          value: "testdb"
+        - name: MONGO_COLLECTION
+          value: "testcollection"
